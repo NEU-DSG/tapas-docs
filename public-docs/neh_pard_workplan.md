@@ -1,4 +1,9 @@
-# March-August 2014
+# Year 1
+During the first year, we lay the informational foundation of repository design,
+metadata design/conversion systems, and indexing.
+
+## March-August 2014
+
 * Begin repository design: Develop modeling of TEI and XSLT objects and any associated disseminations in Fedora; experiment with different modeling approaches (Patrick Yott, Andrew Ashton)
 * Develop SOLR indexing: index TEI headers from TAPAS data; research as needed to determine whether to index these in SOLR, or use XQuery (Steven Bassett)
 * Develop metadata conversion: conversion of TEI Headers to project-specific implementation of MODS records; develop or customize a crosswalk from TEIheader to MODS (Sarah Sweeney)
@@ -7,31 +12,34 @@
 * Initial usability assessment of repository needs following public TAPAS launch (Scott Hamlin, Julia Flanders)
 * Develop initial set of pre-defined XQuery searches: identify high-value searches that will apply to large subsets of TAPAS data, to drive out-of-the-box visualization options within the TEI publication interface (Syd Bauman and Julia Flanders, TAPAS contributors)
 
-# September - February 2014-15
+## September - February 2014-15
 * Begin Hydra development (Hydra programmer)
 * Consult with TextGrid and other TEI community organizations about state of the art in XML database technology for TEI
 * Develop XML database functionality: implement a few test pre-defined XQueries for publication interface options so that the system can receive a request from the user interface and return a response in JSON for display through a visualization module (XML developer)
 * Begin Drupal development work: build mechanism for receiving and processing data from XML database and repository [this potentially affects the user experience]; select and install modules to support visualization (Eliot Scott, Steven Bassett, Hydra programmer)
 * Begin design of code-along program: develop criteria for recruiting participants, develop outreach materials and overall schedule for the program, issue some advance publicity to raise community awareness of the program (Scott Hamlin, Julia Flanders)
 
-# March - August 2015
+# Year 2
 During the second year, we complete the repository development and implementation
 of XML-aware data provision to the TAPAS interface. By the end of this period, we can
 ingest files to repository, index them, convert their metadata to MODS and index that
 metadata, and process pre-defined XQueries against the XML database.
+## March - August 2015
 * Complete Hydra development 
 * Complete Drupal work: investigate JavaScript libraries to use for visualizations; make necessary connection with XML database, send XQuery to XML database API and process the returned data (Eliot Scott)
 * Prepare for code-along events: begin recruiting participants, develop supporting materials
 * Ongoing application testing and debugging
 
-# September 2015 - February 2016
+## September 2015 - February 2016
 * User testing of working visualization prototypes, followed by evaluation survey to assess areas for further development and correction
 * Conduct first code-along: participants enhance their data during a one-week period of intensive activity in mid-fall coordinated with associated curricula (Scott Hamlin, Julia Flanders)
 * Ongoing application testing and debugging
 
-# March - August 2016
+# Year 3
 During the third year, our focus is on assessment, community data enhancement, and
 documentation of results.
+
+## March - August 2016
 * Conduct second code-along during spring semester
 * Revise and improve visualizations in response to feedback from code-alongs 
 
