@@ -12,7 +12,7 @@ metadata design/conversion systems, and indexing.
 * Initial usability assessment of repository needs following public TAPAS launch 
 * Develop initial set of pre-defined XQuery searches: identify high-value searches that will apply to large subsets of TAPAS data, to drive out-of-the-box visualization options within the TEI publication interface
 
-## September - February 2014-15
+## September 2014 - February 2015
 * Begin Hydra development 
 * Consult with TextGrid and other TEI community organizations about state of the art in XML database technology for TEI
 * Develop XML database functionality: implement a few test pre-defined XQueries for publication interface options so that the system can receive a request from the user interface and return a response in JSON for display through a visualization module 
