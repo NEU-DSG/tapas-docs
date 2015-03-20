@@ -63,5 +63,5 @@ These tasks are desirable but can be deferred if necessary:
     * Repository push function/preservation storage: this may not be necessary for the basic TAPAS services, and if we choose to wait/postpone offering long-term repository storage, this could be a second phase of the project
 
 Previous Work Plans
-![2013](https://sites.google.com/site/teipublishing/work-plan/screenshot%202.png)
+![2013](https://35418645-a-62cb3a1a-s-sites.googlegroups.com/site/teipublishing/work-plan/screenshot%202.png?attachauth=ANoY7cqyobfp7hddU4GThqAjcstU1C8fB84x6O6In1b8Q9tDXAW1SHsDPC7TxOoJXbGz3cBfA5mzVizKFYLHD-NlvKM1zEazmb4Qaa78Dawpou35WuVbKebahxD_AVE0UPSkailkRb2QQZsHsvH4FT3lVC-M75UYDNXUScqJ5QV1YtbkOndHkWM_ANwIgYdrN6FYvfs-181AJHopHAwlBmRb62kSV2vKYhVDP-tskPKdB-r61zz1ePI%3D&attredirects=0)
 ![2012](https://sites.google.com/site/teipublishing/work-plan/screenshot.png)
