@@ -4,11 +4,11 @@ posted Apr 9, 2013, 1:57 PM by qdelete-1-eliot_scott@brown.edu
 
 ## TAPAS Display
 
-    The TAPAS site is now displayed according to the layouts designed by Jeremy Boggs (http://clioweb.github.com/tapas/index.html
+    The TAPAS site is now displayed according to the layouts designed by Jeremy Boggs  http://clioweb.github.com/tapas/index.html
     http://clioweb.github.com/tapas/project.html
     http://clioweb.github.com/tapas/collection.html
     http://clioweb.github.com/tapas/document.html
-    http://clioweb.github.com/tapas/browse.html)
+    http://clioweb.github.com/tapas/browse.html
     This was accomplished by modifying Panel and Views layouts with mostly css at the theme layer. A few php modifications were made on page.tpl but only to allow the admin to see default drupal tabs on admin pages.
 
     Default Drupal editing features have been replaced with custom buttons based on Jeremy’s designs
