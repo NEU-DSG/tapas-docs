@@ -1,9 +1,8 @@
-Meetings
-This page lists all meetings and conference calls, with agendas for future meetings and notes for past meetings.
+This page is an archive list of all documented meetings and conference calls, with agendas for future meetings and notes for past meetings.
+## 2009-2012
+* [TAPAS Projector Director's Meeting Notes](https://docs.google.com/document/d/1BqNVjTO2T6mm1BqTumMu01ov2kB5fbFAjSOpp6YnXEE/edit)
 
-TAPAS Projector Director's Meeting Notes
-
-Past Meetings and Calls
+***
 
 * April 25 - 27, 2012 SUG F2F [agenda and notes] <https://docs.google.com/document/d/1FjzZ_k6oSu1N5BT3oImqZvEHXGeZ6MdUcSAPw8vBA04/edit>
 * February 21, 2012 [SUG Virtual Meeting](https://docs.google.com/document/d/1SpJKf2L7aFEt-xh8Jft1CEuQjyq6rRYPgwoEMngl-iQ/edit)
