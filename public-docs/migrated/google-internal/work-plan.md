@@ -55,3 +55,13 @@ We need to revisit and order/possibly expand this list after January 2013:
 
 
 ## Deferrable
+
+These tasks are desirable but can be deferred if necessary:
+
+    * Transforms for advanced visualization, output of JSON, etc.
+    * API development: needs to be deferred pending more information about the Tuque API; our premises for the project architecture have changed. Now, the Drupal site is the main interface locus and data is pushed to the repository. API is a property of the Drupal site rather than of the repository. This is less about software development; we won’t be building a new API, but learning how to use the tools we have on hand to expose data. This is also deferrable in the sense that the service can function without it.
+    * Repository push function/preservation storage: this may not be necessary for the basic TAPAS services, and if we choose to wait/postpone offering long-term repository storage, this could be a second phase of the project
+
+Previous Work Plans
+![2013](https://sites.google.com/site/teipublishing/work-plan/screenshot%202.png)
+![2012](https://sites.google.com/site/teipublishing/work-plan/screenshot.png)
