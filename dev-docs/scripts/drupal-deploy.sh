@@ -41,6 +41,11 @@ cd sites/all/modules
 git clone https://github.com/NEU-DSG/tapas-modules
 sleep 5
 echo "---------------------------------------------------------"
+echo "Enabling TAPAS features..."
+drush -y en tapas_admin_sitewide_permissions
+drush -y en tapas_og_base_fields tapas_tiny_image
+drush -y en tapas_ct_project tapas_ct_collection tapas_ct_record tapas_ct_institution
+echo "---------------------------------------------------------"
 echo "cloning tapas-themes repo..."
 cd ../themes
 git clone https://github.com/NEU-DSG/tapas-themes
