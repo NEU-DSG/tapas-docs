@@ -27,9 +27,9 @@ rm -rf sites/all/modules/contrib/og/og_example
 rm -rf sites/all/modules/contrib/date/date_migrate/date_migrate_example
 echo "---------------------------------------------------------"
 echo "enabling modules..."
-drush -y en ctools features views entity addressfield checklistapi contact forum 
-drush -y en entityreference views_bulk_operations actions_permissions context biblio date entity_token admin_menu name 
-drush -y en og views_ui context_ui context_layouts rules entityreference_prepopulate
+drush -y en ctools features views entity addressfield checklistapi contact 
+drush -y en entityreference views_bulk_operations date entity_token admin_menu name 
+drush -y en og views_ui entityreference_prepopulate
 drush -y en og_access og_context og_register
 drush -y en og_ui admin_menu date link
 echo "---------------------------------------------------------"
@@ -40,9 +40,6 @@ echo "cloning tapas-modules repo..."
 cd sites/all/modules
 git clone https://github.com/NEU-DSG/tapas-modules
 sleep 5
-echo "---------------------------------------------------------"
-echo "enabling TAPAS modules..."
-drush -y en tapas_collection tapas_institution tapas_menu_member_actions tapas_menu_navigation tapas_project tapas_record tapas_view_collections_belonging_to_project tapas_view_list_all_collections tapas_view_list_all_projects tapas_view_my_collections tapas_view_my_projects
 echo "---------------------------------------------------------"
 echo "cloning tapas-themes repo..."
 cd ../themes
