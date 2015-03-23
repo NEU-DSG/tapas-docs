@@ -16,7 +16,7 @@ drush @drupal7 si standard -y
 echo "---------------------------------------------------------"
 echo "downloading contributed modules..."
 mkdir contrib
-drush -y dl views entity ctools og features entityreference views_bulk_operations addressfield context biblio date rules link entityreference_prepopulate name --destination=contrib
+drush -y dl views entity ctools og features entityreference views_bulk_operations addressfield context biblio date rules link entityreference_prepopulate name admin_menu --destination=contrib
 sleep 5
 echo "---------------------------------------------------------"
 echo "moving moving modules to the modules folder..."
