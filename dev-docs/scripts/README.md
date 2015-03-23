@@ -23,6 +23,7 @@ The following is a list of things that I have not (yet?) found a way to make "st
  * Remove the default content types, "Article" and "Page". We'll probably add something similar at some point, but they will be named in a way that makes sense for the Tapas site.
  * Remove the default user role "administrator" (It is replaced with "site administrator" to distiguish it from Organic Group administrative roles)
  * Institution, Project, Collection, and Record should be set NOT to accept comments, and NOT to show author and date information. I can't seem to save these via the Features interface. (I should be able to do it by manually adding the commands into the exported feature, but I don't want to make manual changes when I might need to export over them again shortly).
+ * I don't think that activating blocks to put them in various theme locations is possible via features; this needs to be done manually.
 
 ##Test Data
 
