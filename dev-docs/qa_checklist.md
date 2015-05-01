@@ -16,7 +16,9 @@ This is a preliminary draft of an (as yet extremely basic) QA checklist for the 
 - [ ] Verify that you can upload a single tei record
 - [ ] Verify that you can upload a bulk set of tei records
 
-## Forums
+## Other
 - [ ] Verify that you can browse the forums
 - [ ] Verify that you can post to the forums
 - [ ] Verify that you can read a tei record in all provided formats
+- [ ] View TEI record metadata
+- [ ] View TEI record citation info
