@@ -1,20 +1,29 @@
 # tapas-xq API
 
-## Derive all production files from TEI document
+## Derive all production files from a TEI document
 
-`curl -F "requests=@REQ" -F "files=@DOC" http://localhost:8868/exist/apps/tapas-xq/derive-all`
+`curl -F "request=@REQ" -F "file=@DOC" http://localhost:8868/exist/apps/tapas-xq/derive-all`
 
 Method: POST
 
 Content-type: multipart/*
 
 Requires:
-* an XML-encoded list (see example below) of IDs and app-level metadata associated with each file in
-* a ZIP-compressed package of TEI documents.
+* an XML-encoded list (see example below) of IDs and app-level metadata associated with
+* an XML-encoded TEI document.
 
-Returns: a ZIP-compressed package containing the requested production files. Each original TEI document will result in
-* a MODS record and
-* some number N of HTML files for use in the reading interface.
+Returns: 
+* a ZIP-compressed package containing the requested production files. Each original TEI document will result in:
+  * mods.xml
+  * _teibp_
+    * FILENAME.xhtml
+  * _tapas_generic_
+    * FILENAME.xhtml
+
+Stores:
+* a copy of the original TEI file,
+* the new MODS file, and 
+* a new XML file containing document-level permissions.
 
 ### XML elements in the list of production requests
 <table>
@@ -24,24 +33,14 @@ Returns: a ZIP-compressed package containing the requested production files. Eac
     <td>DESCRIPTION</td>
   </tr>
   <tr>
-    <td>requests</td>
-    <td>node-set</td>
-    <td>The root element. Wrapper around 1+ &lt;request&gt; elements and project-level information.</td>
-  </tr>
-  <tr>
-    <td>proj-id</td>
-    <td>string</td>
-    <td>Identifier for the project that owns the XML document.</td>
-  </tr>
-  <tr>
     <td>request</td>
     <td>node-set</td>
     <td>Contains information specific to a given TEI file.</td>
   </tr>
   <tr>
-    <td>filename</td>
+    <td>proj-id</td>
     <td>string</td>
-    <td>A reference to the original TEI document, as named in the attached ZIP package.</td>
+    <td>Identifier for the project that owns the XML document.</td>
   </tr>
   <tr>
     <td>doc-id</td>
@@ -71,11 +70,7 @@ Returns: a ZIP-compressed package containing the requested production files. Eac
 
 ### Grammar
 
-requests := request+
-
-request := filename doc-id proj-id is-public? collections file
-
-filename := string
+request := doc-id proj-id is-public? collections file
 
 doc-id := STRING
 
@@ -87,28 +82,14 @@ collections := collection*
 
 collection := STRING
 
-### Example batch-XML request
+### Example XML request
 
-    <requests>
+    <request>
+      <doc-id>sourcebook</doc-id>
       <proj-id>gutenberg</proj-id>
-      
-      <request>
-        <filename>ayer_sourcebook_tiny.xml</filename>
-        <doc-id>sourcebook</doc-id>
-        <is-public>true</is-public>
-        <collections>
-          <collection>churches</collection>
-          <collection>history</collection>
-        </collections>
-      </request>
-      
-      <request>
-        <filename>ayer_sourcebook.xml</filename>
-        <doc-id>sourcebook2</doc-id>
-        <is-public>true</is-public>
-        <collections>
-          <collection>churches</collection>
-          <collection>history</collection>
-        </collections>
-      </request>
-    </requests>
+      <is-public>true</is-public>
+      <collections>
+        <collection>churches</collection>
+        <collection>history</collection>
+      </collections>
+    </request>
