@@ -13,7 +13,7 @@ Requires:
 * an XML-encoded TEI document.
 
 Returns: 
-* a ZIP-compressed package containing the requested production files. Each original TEI document will result in:
+* a ZIP-compressed package containing the requested production files:
   * mods.xml
   * _teibp_
     * FILENAME.xhtml
@@ -23,7 +23,7 @@ Returns:
 Stores:
 * a copy of the original TEI file,
 * the new MODS file, and 
-* a new XML file containing document-level permissions.
+* a new XML file containing document-level permissions (TFE).
 
 ### XML elements in the list of production requests
 <table>
@@ -93,3 +93,48 @@ collection := STRING
         <collection>history</collection>
       </collections>
     </request>
+
+
+## Derive MODS production file from a TEI document
+
+`curl -X POST -d @DOC http://localhost:8868/exist/apps/tapas-xq/derive-mods`
+
+Method: POST
+
+Content-type: application/x-www-form-urlencoded
+
+Requires:
+* an XML-encoded TEI document.
+
+Returns: 
+* mods.xml
+
+## Derive XHTML (reading interface) production files from a TEI document
+
+<!--`curl -X POST -d @DOC http://localhost:8868/exist/apps/tapas-xq/derive-readers`-->
+
+Method: POST
+
+Content-type: application/x-www-form-urlencoded
+
+Requires:
+* a file path representing the parent folder of any CSS/JS/image assets,
+* an XML-encoded TEI document.
+
+Returns: 
+* a ZIP-compressed package containing the requested production files:
+  * _teibp_
+    * FILENAME.xhtml
+  * _tapas_generic_
+    * FILENAME.xhtml
+
+## Store TEI and derivatives in eXist
+
+## Update MODS metadata
+
+## Update document metadata (TFE)
+
+## Delete document and derivatives
+
+## Manually trigger file reindexing
+
