@@ -11,10 +11,10 @@ Each request must contain _either_
 
 ### Status codes
 
-Success: 200
-Log-in failed/insufficient permissions for executing request: 401
-Unsupported HTTP method: 405
-Unable to access some resource: 500
+* Success: 200
+* Log-in failed/insufficient permissions for executing request: 401
+* Unsupported HTTP method: 405
+* Unable to access some resource: 500
 
 ## Resource requests
 
@@ -37,6 +37,9 @@ Content-type: multipart/form-data
 __`:type`__: A keyword representing the type of reader view to generate. Values can be "teibp" or "tapas-generic".
 
 Parameters:
+
+| Name | Description |
+| ------ | ------- |
 | assets-base | A file path representing the parent folder of any CSS/JS/image assets that will be referenced by the resulting HTML document. |
 | file | An XML-encoded TEI document. |
 
@@ -59,6 +62,9 @@ Request body must be a TEI-encoded XML document.
 Content-type: multipart/form-data
 
 Parameters:
+
+| Name | Description |
+| ------ | ------- |
 | title | The work's title. |
 | languages |  | <!-- ? -->
 | extent |  | <!-- ? -->
@@ -71,8 +77,7 @@ Parameters:
 | date-created |  |
 | edition |  |
 | notes |  |
-
-_We should be clear which metadata we want to allow the user to edit. I suspect we want to focus our efforts on the fields specific to the TEI file and its encoding (above), rather than any source material (below)._
+| | _We should be clear which metadata we want to allow the user to edit. I suspect we want to focus our efforts on the fields specific to the TEI file and its encoding (above), rather than any source material (below)._ |
 | subj-topics |  |
 | series-title |  |
 | series-editor |  |
@@ -92,10 +97,13 @@ If no TEI document is associated with the given doc-id, the response will have a
 Content-type: multipart/form-data
 
 Parameters:
+
+| Name | Description |
+| ------ | ------- |
 | proj-id | The identifier of the project which owns the work. |
 | collections | Comma-separated list of collection identifiers with which the work should be associated. |
 | is-public | Value of "true" or "false". Indicates if the XML document should be queryable by the public. Default value is false. (Note that if the document belongs to even one public collection, it should be queryable.) |
-| transforms | Comma-separated list of reader interface transformations compatible with this document. | <!-- ? -->
+| transforms | Comma-separated list of reader interface transformations compatible with this document. |
 
 If no TEI document is associated with the given doc-id, the response will have a status code of 500. The TEI file must be stored _before_ any of its derivatives.
 
