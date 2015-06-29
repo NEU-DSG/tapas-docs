@@ -1,140 +1,113 @@
 # tapas-xq API
 
-## Derive all production files from a TEI document
+## For all requests
 
-`curl -F "request=@REQ" -F "file=@DOC" http://localhost:8868/exist/apps/tapas-xq/derive-all`
+### Authentication
 
-Method: POST
+Each request must contain _either_
 
-Content-type: multipart/*
+* an eXist-db user name and password with the permissions to execute XQueries and modify the 'tapas-data' collection, _or_
+* an Authentication header with a user token implying the above.
 
-Requires:
-* an XML-encoded list (see example below) of IDs and app-level metadata associated with
-* an XML-encoded TEI document.
+### Status codes
 
-Returns: 
-* a ZIP-compressed package containing the requested production files:
-  * mods.xml
-  * _teibp_
-    * FILENAME.xhtml
-  * _tapas_generic_
-    * FILENAME.xhtml
+Success: 200
+Log-in failed/insufficient permissions for executing request: 401
+Unsupported HTTP method: 405
+Unable to access some resource: 500
 
-Stores:
-* a copy of the original TEI file,
-* the new MODS file, and 
-* a new XML file containing document-level permissions (TFE).
+## Resource requests
 
-### XML elements in the list of production requests
-<table>
-  <tr>
-    <td>NAME</td>
-    <td>TYPE OF CONTENT</td>
-    <td>DESCRIPTION</td>
-  </tr>
-  <tr>
-    <td>request</td>
-    <td>node-set</td>
-    <td>Contains information specific to a given TEI file.</td>
-  </tr>
-  <tr>
-    <td>proj-id</td>
-    <td>string</td>
-    <td>Identifier for the project that owns the XML document.</td>
-  </tr>
-  <tr>
-    <td>doc-id</td>
-    <td>string</td>
-    <td>Identifier for the XML document.</td>
-  </tr>
-  <tr>
-    <td>is-public</td>
-    <td>boolean</td>
-    <td>Value of "true" or "false". Indicates if the XML document
-      should be queryable by the public. Default value is false. (Note 
-      that if the document belongs to even one public collection, it
-      should be queryable.)</td>
-  </tr>
-  <tr>
-    <td>collections</td>
-    <td>collection*</td>
-    <td>Container for 0 or more collection identifiers.</td>
-  </tr>
-  <tr>
-    <td>collection</td>
-    <td>string</td>
-    <td>Identifier for a collection belonging to the owner project. 
-      The XML document will be associated with this collection.</td>
-  </tr>
-</table>
+### Derive MODS production file from a TEI document
 
-### Grammar
-
-request := doc-id proj-id is-public? collections file
-
-doc-id := STRING
-
-proj-id := STRING
-
-is-public := BOOLEAN
-
-collections := collection*
-
-collection := STRING
-
-### Example XML request
-
-    <request>
-      <doc-id>sourcebook</doc-id>
-      <proj-id>gutenberg</proj-id>
-      <is-public>true</is-public>
-      <collections>
-        <collection>churches</collection>
-        <collection>history</collection>
-      </collections>
-    </request>
-
-
-## Derive MODS production file from a TEI document
-
-`curl -X POST -d @DOC http://localhost:8868/exist/apps/tapas-xq/derive-mods`
-
-Method: POST
+`POST exist/apps/tapas-xq/derive-mods`
 
 Content-type: application/x-www-form-urlencoded
 
-Requires:
-* an XML-encoded TEI document.
+Request body must be a TEI-encoded XML document.
 
-Returns: 
-* mods.xml
+Returns an XML-encoded file of the MODS record with status code 200. eXist does not store any files as a result of this request.
 
-## Derive XHTML (reading interface) production files from a TEI document
+### Derive XHTML (reading interface) production files from a TEI document
 
-<!--`curl -X POST -d @DOC http://localhost:8868/exist/apps/tapas-xq/derive-readers`-->
+`POST exist/db/apps/tapas-xq/derive-reader/:type`
 
-Method: POST
+Content-type: multipart/form-data
 
-Content-type: application/x-www-form-urlencoded
+__`:type`__: A keyword representing the type of reader view to generate. Values can be "teibp" or "tapas-generic".
 
-Requires:
-* a file path representing the parent folder of any CSS/JS/image assets,
-* an XML-encoded TEI document.
+Parameters:
+| assets-base | A file path representing the parent folder of any CSS/JS/image assets that will be referenced by the resulting HTML document. |
+| file | An XML-encoded TEI document. |
 
-Returns: 
-* a ZIP-compressed package containing the requested production files:
-  * _teibp_
-    * FILENAME.xhtml
-  * _tapas_generic_
-    * FILENAME.xhtml
+Returns XHTML generated from the TEI document with status code 200. eXist does not store any files as a result of this request.
 
-## Store TEI and derivatives in eXist
+## Storage requests
 
-## Update MODS metadata
+__`:doc-id`__: A unique identifier for the document record attached to the original TEI document and its derivatives (MODS, TFE). Currently maps to the Drupal identifier ('did').
 
-## Update document metadata (TFE)
+### Store TEI in eXist
 
-## Delete document and derivatives
+`PUT exist/db/apps/tapas-xq/:doc-id/tei`
 
-## Manually trigger file reindexing
+Request body must be a TEI-encoded XML document.
+
+### Store MODS metadata in eXist (and return the new XML file)
+
+`POST exist/db/apps/tapas-xq/:doc-id/metadata`
+
+Content-type: multipart/form-data
+
+Parameters:
+| title | The work's title. |
+| languages |  | <!-- ? -->
+| extent |  | <!-- ? -->
+| abstract |  |
+| access-condition |  |
+| personal-names + roles |  | <!-- Dealing with this is thorny. Do we want to encourage a "LAST, FIRST" policy? How will this be represented in the form data? -->
+| org-name |  |
+| pub-place |  |
+| publishers |  |
+| date-created |  |
+| edition |  |
+| notes |  |
+
+_We should be clear which metadata we want to allow the user to edit. I suspect we want to focus our efforts on the fields specific to the TEI file and its encoding (above), rather than any source material (below)._
+| subj-topics |  |
+| series-title |  |
+| series-editor |  |
+| orig-title |  |
+| monogr-title |  |
+| monogr-author |  |
+| imprint-place |  |
+| imprint-publisher |  |
+| imprint-date |  |
+
+If no TEI document is associated with the given doc-id, the response will have a status code of 500. The TEI file must be stored _before_ any of its derivatives.
+
+### Store TFE metadata in eXist
+
+`POST exist/db/apps/tapas-xq/:doc-id/tfe`
+
+Content-type: multipart/form-data
+
+Parameters:
+| proj-id | The identifier of the project which owns the work. |
+| collections | Comma-separated list of collection identifiers with which the work should be associated. |
+| is-public | Value of "true" or "false". Indicates if the XML document should be queryable by the public. Default value is false. (Note that if the document belongs to even one public collection, it should be queryable.) |
+| transforms | Comma-separated list of reader interface transformations compatible with this document. | <!-- ? -->
+
+If no TEI document is associated with the given doc-id, the response will have a status code of 500. The TEI file must be stored _before_ any of its derivatives.
+
+### Delete document and derivatives
+
+`DELETE exist/db/apps/tapas-xq/:doc-id`
+
+If no TEI document is associated with the given doc-id, the response will have a status code of 500.
+
+## Maintenance requests
+
+### Trigger file reindexing (manually)
+
+`POST exist/db/apps/tapas-xq/reindex`
 
