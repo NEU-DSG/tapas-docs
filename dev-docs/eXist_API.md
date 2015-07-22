@@ -22,7 +22,7 @@ Each request must contain _either_
 
 `POST exist/apps/tapas-xq/derive-mods`
 
-Content-type: application/x-www-form-urlencoded
+Content-type: application/xml
 
 Request body must be a TEI-encoded XML document.
 
@@ -52,6 +52,8 @@ __`:doc-id`__: A unique identifier for the document record attached to the origi
 ### Store TEI in eXist
 
 `PUT exist/db/apps/tapas-xq/:doc-id/tei`
+
+Content-type: application/xml
 
 Request body must be a TEI-encoded XML document.
 
