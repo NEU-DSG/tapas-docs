@@ -61,11 +61,13 @@ Returns XHTML generated from the TEI document with status code 200. eXist does n
 
 ## Storage requests
 
+__`:proj-id`__: The identifier of the project which owns the item.
+
 __`:doc-id`__: A unique identifier for the document record attached to the original TEI document and its derivatives (MODS, TFE). Currently maps to the Drupal identifier ('did').
 
 ### Store TEI in eXist
 
-`PUT exist/db/apps/tapas-xq/:doc-id/tei`
+`PUT exist/db/apps/tapas-xq/:proj-id/:doc-id/tei`
 
 Content-type: application/xml
 
@@ -73,7 +75,7 @@ Request body must be a TEI-encoded XML document.
 
 ### Store MODS metadata in eXist (and return the new XML file)
 
-`POST exist/db/apps/tapas-xq/:doc-id/mods`
+`POST exist/db/apps/tapas-xq/:proj-id/:doc-id/mods`
 
 Content-type: multipart/form-data
 
@@ -98,7 +100,6 @@ Parameters:
 
 | Name | Description |
 | ------ | ------- |
-| proj-id | The identifier of the project which owns the work. |
 | collections | Comma-separated list of collection identifiers with which the work should be associated. |
 | is-public | Value of "true" or "false". Indicates if the XML document should be queryable by the public. Default value is false. (Note that if the document belongs to even one public collection, it should be queryable.) |
 | transforms | Comma-separated list of reader interface transformations compatible with this document. |
@@ -107,7 +108,7 @@ If no TEI document is associated with the given doc-id, the response will have a
 
 ### Delete document and derivatives
 
-`DELETE exist/db/apps/tapas-xq/:doc-id`
+`DELETE exist/db/apps/tapas-xq/:proj-id/:doc-id`
 
 If no TEI document is associated with the given doc-id, the response will have a status code of 500.
 
