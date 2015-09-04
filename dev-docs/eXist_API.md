@@ -11,7 +11,8 @@ Each request must contain _either_
 
 ### Status codes
 
-* Success: 200
+* Success (derivation): 200
+* Success (storage): 201
 * Log-in failed/insufficient permissions for executing request: 401
 * Unsupported HTTP method: 405
 * Unable to access some resource: 500
@@ -24,7 +25,20 @@ Each request must contain _either_
 
 Content-type: application/xml
 
-Request body must be a TEI-encoded XML document.
+Parameters:
+
+| Name | Description |
+| ------ | ------- |
+| file | The TEI-encoded XML document to be transformed. |
+
+Optional parameters:
+
+| Name | Description |
+| ------ | ------- |
+| displayTitle | The work's title as it should appear in TAPAS metadata. |
+| displayAuthors | '\|'-separated list of authors' names as they should appear in TAPAS metadata. |
+| displayContributors | '\|'-separated list of contributors' names as they should appear in TAPAS metadata. |
+| timelineDate | The date associated with this item in the TAPAS Timeline feature. |
 
 Returns an XML-encoded file of the MODS record with status code 200. eXist does not store any files as a result of this request.
 
@@ -59,42 +73,24 @@ Request body must be a TEI-encoded XML document.
 
 ### Store MODS metadata in eXist (and return the new XML file)
 
-`POST exist/db/apps/tapas-xq/:doc-id/metadata`
+`POST exist/db/apps/tapas-xq/:doc-id/mods`
 
 Content-type: multipart/form-data
 
-Parameters:
+Optional parameters:
 
 | Name | Description |
 | ------ | ------- |
-| title | The work's title. |
-| languages |  | <!-- ? -->
-| extent |  | <!-- ? -->
-| abstract |  |
-| access-condition |  |
-| personal-names + roles |  | <!-- Dealing with this is thorny. Do we want to encourage a "LAST, FIRST" policy? How will this be represented in the form data? -->
-| org-name |  |
-| pub-place |  |
-| publishers |  |
-| date-created |  |
-| edition |  |
-| notes |  |
-| | _We should be clear which metadata we want to allow the user to edit. I suspect we want to focus our efforts on the fields specific to the TEI file and its encoding (above), rather than any source material (below)._ |
-| subj-topics |  |
-| series-title |  |
-| series-editor |  |
-| orig-title |  |
-| monogr-title |  |
-| monogr-author |  |
-| imprint-place |  |
-| imprint-publisher |  |
-| imprint-date |  |
+| displayTitle | The work's title as it should appear in TAPAS metadata. |
+| displayAuthors | '\|'-separated list of authors' names as they should appear in TAPAS metadata. |
+| displayContributors | '\|'-separated list of contributors' names as they should appear in TAPAS metadata. |
+| timelineDate | The date associated with this item in the TAPAS Timeline feature. |
 
 If no TEI document is associated with the given doc-id, the response will have a status code of 500. The TEI file must be stored _before_ any of its derivatives.
 
 ### Store TFE metadata in eXist
 
-`POST exist/db/apps/tapas-xq/:doc-id/tfe`
+`POST exist/db/apps/tapas-xq/:proj-id/:doc-id/tfe`
 
 Content-type: multipart/form-data
 
