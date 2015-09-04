@@ -106,6 +106,12 @@ Parameters:
 
 If no TEI document is associated with the given doc-id, the response will have a status code of 500. The TEI file must be stored _before_ any of its derivatives.
 
+### Delete project and its resources
+
+`DELETE exist/db/apps/tapas-xq/:proj-id`
+
+If no project collection is associated with the given doc-id, the response will have a status code of 500.
+
 ### Delete document and derivatives
 
 `DELETE exist/db/apps/tapas-xq/:proj-id/:doc-id`
