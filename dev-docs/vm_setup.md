@@ -12,12 +12,9 @@ How to know if you have everything up and running locally in your VM
     vagrant up
   ```
 3. make sure you have the most recent build of the tapas-drupal app
-  "So what you want do is delete everything in the /var/www/html directory ​*without*​ deleting the directory itself or the buildtapas.sh script. Then you want to rerun the script with exactly the same parameters as are passed in by the provisioning script"
+  delete everything in the /var/www/html directory *without* deleting the directory itself or the buildtapas.sh script. rerun the script with exactly the same parameters as are passed in by the provisioning script (```/bin/bash --login /var/www/html/buildtapas.sh "root" "" "tapas_drupal" "drupaldb" "drupaldb"```)
     
-4. make sure you have the most recent build of the exist-app
-  ```
-    TODO
-  ```
+4. make sure you have the most recent build of the exist-app. go to http://localhost:8848/exist and click package manager then find tapas-xq and make the version number matches the most recent version on https://github.com/NEU-DSG/tapas-xq. if it does not, follow the instructions here: https://github.com/NEU-DSG/tapas-xq to install and deploy
 
 
 5. make sure apache http is running (while sshed into vm)
