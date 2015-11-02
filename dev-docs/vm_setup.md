@@ -44,3 +44,11 @@ How to know if you have everything up and running locally in your VM
 
   
   
+To rebuild the reading interfaces run 
+  ```
+    RAILS_ENV=production bundle exec thor tapas_rails:rebuild_reading_interfaces
+  ```
+when you are ssh'ed in as tapas_rails user, locally it would just be 
+  ```
+    bundle exec thor tapas_rails:rebuild_reading_interfaces
+  ```
