@@ -29,7 +29,7 @@ How to know if you have everything up and running locally in your VM
   
 6. make sure exist is running, go to http://localhost:8848/exist
 
-7. make sure solr is running, go to http://localhost:8986/solr
+7. make sure solr is running, go to http://localhost:8986/solr (If solr is down locally try stopping and starting jetty with rake jetty:stop and rake jetty:start. If solr is down on prod, it has to be restarted by restarting tomcat with /sbin/service tomcat restart.)
 
 8. make sure rails is running, go to http://rails_api.localhost:8080/
 
