@@ -27,7 +27,7 @@ How to know if you have everything up and running locally in your VM
     ```
   )
   
-6. make sure exist is running, go to [http://localhost:8848/exist](http://localhost:8848/exist)
+6. make sure exist is running, go to [http://localhost:8848/exist](http://localhost:8848/exist) (if exist is down locally try restarting with `sudo service existdb restart`)
 
 7. make sure solr is running, go to [http://localhost:8986/solr](http://localhost:8986/solr) (If solr is down locally try stopping and starting jetty with rake jetty:stop and rake jetty:start. If solr is down on prod, it has to be restarted by restarting tomcat with /sbin/service tomcat restart.)
 
