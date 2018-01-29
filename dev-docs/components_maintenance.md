@@ -83,7 +83,7 @@ Apache's service name is "httpd", and it can be restarted with `sudo service htt
 
 Passenger runs the Rails server. To restart Rails, restart Passenger. To restart Passenger, restart Apache.
 
-If Passenger and Rails are up, http://railsapi.tapas.neu.edu will have data on view packages (HTML on the staging server).
+If Passenger and Rails are up, <http://railsapi.tapas.neu.edu> will have data on view packages (HTML on the staging server).
 
 ### Ruby on Rails
 
@@ -103,8 +103,8 @@ If Resque stalls, there will be incomplete jobs listed, but zero workers working
   2. Log in to the server.
   3. Log in as "tapas_rails" and change directories to the current deploy.
   4. Restart Resque
-    - On production: `bundle exec cap production resque:restart`
-    - On staging: `bundle exec cap staging resque:restart`
+    1. On production: `bundle exec cap production resque:restart`
+    2. On staging: `bundle exec cap staging resque:restart`
   5. On production, log into TAPAS as an administrator and re-save the most recent TEI documents, projects, and collections.
 
 
