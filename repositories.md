@@ -31,4 +31,6 @@ tapas-stats: <https://github.com/NEU-DSG/tapas-stats>
 
 ## Other
 
+Samples and test files: <https://github.com/NEU-DSG/tapas-TEI-files>
+
 Virtual machine provisioning: <https://github.com/NEU-DSG/plattr>

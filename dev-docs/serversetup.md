@@ -9,26 +9,48 @@ Hydra (now “Samvera”) is a Ruby on Rails gem which provides components and i
 
 Parts and dependencies:
 
+* git;
 * Redis;
-* an implementation of MySQL;
+* an implementation of MySQL server and the dev package;
 * Fedora at version 3.6.1 and Solr at version 4.0.0 (see section below);
 * Ruby at version 2.0.0;
-* tapas_rails, including the notable gems:
+* tapas_rails, including notable gems:
+	* passenger at version 5.0.15,
 	* cerberus_core at version 0.0.1,
-		* logger at version 1.2.8, and
+		* curb
+			* ([requires libcurl packages](https://github.com/taf2/curb#installation)),
+		* logger at version 1.2.8 (not available anymore; run `bundle update logger --patch` to use version 1.2.8.1), and
 	* hydra-head at version 7.2.0.
+
+To obtain and use Ruby at a specific version, install the Ruby Version Manager (RVM) then run:
+
+		rvm install 2.0.0
+		rvm use 2.0.0
+
+On a fresh copy of tapas_rails, with Ruby, Redis, and MySQL installed:
+
+		gem install bundler
+		bundle update logger --patch
+		./REDIS_HOME/src/redis-server
+		passenger start
+		QUEUE=* rake environment resque:work 
+
+The process for starting Fedora and Solr is described in the next section.
 
 Useful links:
 
 * The Samvera home page: <https://samvera.org/>
 * Downloads for Redis: <https://redis.io/download>
+* Installation instructions for RVM: <https://rvm.io/rvm/install>
 * The (very, very old) cerberus_core gem repository: <https://github.com/NEU-Libraries/cerberus_core>
+* “What happened to [Logger] v1.2.8?”: <https://github.com/nahi/logger/issues/3#issuecomment-455776902>
+* Installation instructions for the curb gem: <https://github.com/taf2/curb#installation>
 * hydra-head gem, v7.2.0: <https://github.com/samvera/hydra-head/tree/v7.2.0>
 
 
 #### Fedora + Solr + Jetty
 
-The Hydra stack is founded on the Fedora repository, with Solr (and [Blacklight](http://projectblacklight.org/)) for indexing. Jetty is used to serve them out.
+The Hydra stack is founded on the Fedora repository, with Solr (and [Blacklight](http://projectblacklight.org/)) for indexing and discovery. Jetty is used to serve them out.
 
 TAPAS is version-locked to Fedora version 3.6.1 and Solr 4.0.0. Because the hydra-head’s `hydra:jetty` generator [won’t be able to find these on GitHub](https://github.com/samvera-deprecated/jettywrapper/blob/master/lib/jettywrapper.rb#L60), an alternate path for `ZIP_URL` has been set. An archive containing Solr and Fedora should be placed at `tapas_rails/tmp/new-solr-schema.zip`.
 
@@ -43,7 +65,7 @@ With Jetty running, Solr should be available at <http://localhost:8983/solr/>. F
 
 Useful links:
 
-* jettywrapper gem (deprecated): <https://github.com/samvera-deprecated/jettywrapper>
+* Repository for the jettywrapper gem (deprecated): <https://github.com/samvera-deprecated/jettywrapper>
 * Code for setting up Hydra-Jetty in the “plattr” virtual environment: <https://github.com/NEU-DSG/plattr/blob/123baabda636fe936610e04552084cbe8fdb1be3/scripts/plattr_provisioning.sh#L43-L60>
 * Samvera’s instructions on setting up hydra-jetty: <https://github.com/samvera/hydra-works/wiki/Lesson:-install-hydra-jetty>
 
