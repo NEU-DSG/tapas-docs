@@ -1,17 +1,34 @@
-## Hungry for more TAPAS?
+# TAPAS Repositories
 
-TAPAS website: <http://www.tapasproject.org/>
+## General
+
+TAPAS website: <https://www.tapasproject.org/>
 
 Public documents, documentation, and meeting notes on GitHub: <https://github.com/NEU-DSG/tapas-docs>
 
-Drupal build profile on GitHub: <https://github.com/NEU-DSG/buildtapas>
 
-Drupal theme on GitHub: <https://github.com/NEU-DSG/tapas-themes>
+## Platform Code
 
-Drupal modules on GitHub: <https://github.com/NEU-DSG/tapas-modules>
+Hydra/Samvera Stack: <https://github.com/NEU-DSG/tapas_rails>
 
-Hydra Head on GitHub: <https://github.com/NEU-DSG/tapas_rails>
+eXist-db EXPath application: <https://github.com/NEU-DSG/tapas-xq>
 
-eXist-db EXpath application on GitHub: <https://github.com/NEU-DSG/tapas-xq>
+Drupal build profile: <https://github.com/NEU-DSG/buildtapas>
 
-Virtual machine provisioning on GitHub: <https://github.com/NEU-DSG/plattr>
+Drupal theme: <https://github.com/NEU-DSG/tapas-themes>
+
+Drupal modules: <https://github.com/NEU-DSG/tapas-modules>
+
+
+## View packages
+
+Central repository for view packages: <https://github.com/NEU-DSG/tapas-view-packages>
+
+tapas-generic: <https://github.com/NEU-DSG/tapas-generic>
+
+tapas-stats: <https://github.com/NEU-DSG/tapas-stats>
+
+
+## Other
+
+Virtual machine provisioning: <https://github.com/NEU-DSG/plattr>

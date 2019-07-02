@@ -1,18 +1,84 @@
 
 # Setup checklists for TAPAS server
 
-## Overview
+## Overview of the main components
 
-### Componants
-* XML database (eXist)
+### Ruby on Rails + Hydra/Samvera
+
+Hydra (now “Samvera”) is a Ruby on Rails gem which provides components and infrastructure for running a digital repository. The [tapas_rails application](https://github.com/NEU-DSG/tapas_rails) stores, indexes, and serves out TEI files and associated images. In the future, the Rails app will also manage users and the web interface.
+
+Parts and dependencies:
+
+* Redis;
+* an implementation of MySQL;
+* Fedora at version 3.6.1 and Solr at version 4.0.0 (see section below);
+* Ruby at version 2.0.0;
+* tapas_rails, including the notable gems:
+	* cerberus_core at version 0.0.1,
+		* logger at version 1.2.8, and
+	* hydra-head at version 7.2.0.
+
+Useful links:
+
+* The Samvera home page: <https://samvera.org/>
+* Downloads for Redis: <https://redis.io/download>
+* The (very, very old) cerberus_core gem repository: <https://github.com/NEU-Libraries/cerberus_core>
+* hydra-head gem, v7.2.0: <https://github.com/samvera/hydra-head/tree/v7.2.0>
+
+
+#### Fedora + Solr + Jetty
+
+The Hydra stack is founded on the Fedora repository, with Solr (and [Blacklight](http://projectblacklight.org/)) for indexing. Jetty is used to serve them out.
+
+TAPAS is version-locked to Fedora version 3.6.1 and Solr 4.0.0. Because the hydra-head’s `hydra:jetty` generator [won’t be able to find these on GitHub](https://github.com/samvera-deprecated/jettywrapper/blob/master/lib/jettywrapper.rb#L60), an alternate path for `ZIP_URL` has been set. An archive containing Solr and Fedora should be placed at `tapas_rails/tmp/new-solr-schema.zip`.
+
+Once the archive is in place, you can initialize Jetty:
+
+		rails g hydra:jetty
+		rake jetty:config
+
+Start Jetty with `rake jetty:start`, and stop it with `rake jetty:stop`.
+
+With Jetty running, Solr should be available at <http://localhost:8983/solr/>. Fedora should be available at <http://localhost:8983/fedora/>.
+
+Useful links:
+
+* jettywrapper gem (deprecated): <https://github.com/samvera-deprecated/jettywrapper>
+* Code for setting up Hydra-Jetty in the “plattr” virtual environment: <https://github.com/NEU-DSG/plattr/blob/123baabda636fe936610e04552084cbe8fdb1be3/scripts/plattr_provisioning.sh#L43-L60>
+* Samvera’s instructions on setting up hydra-jetty: <https://github.com/samvera/hydra-works/wiki/Lesson:-install-hydra-jetty>
+
+
+### eXist-DB
+
+eXist is a Java-based XML database, used to derive metadata and XHTML from TEI files. It also stores and indexes TEI documents. TAPAS-specific code is found in the [tapas-xq repository](https://github.com/NEU-DSG/tapas-xq).
+
+Parts and dependencies:
+
+* Java at version 8+;
+* eXist-DB at a version between 2.2 and 3.6.1 (version 2.2 can't be run with Java 9+); and
+* the TAPAS-xq app.
+
+Useful links:
+
+* Downloads for eXist JAR files: <https://bintray.com/existdb/releases/exist>
+* On installing eXist: <http://exist-db.org/exist/apps/doc/basic-installation> and <http://exist-db.org/exist/apps/doc/advanced-installation.xml>
+* On setting up eXist to start with the server: <http://exist-db.org/exist/apps/doc/advanced-installation.xml#service>
+* Downloads for the TAPAS-xq application: <https://github.com/NEU-DSG/tapas-xq/releases>
+* On deploying TAPAS-xq: <https://github.com/NEU-DSG/tapas-xq#installation>
+
+
+### Drupal
+
+
+* **eXist-DB:** XML database (eXist)
   * http://exist-db.org
 * Repository (Fedora)
   * http://fedorarepository.org
-* Head to communicate with repo (customized Hydra)
-  * Tapas-hydra is built off of Cerebus which is built off of Hydra
+* Head to communicate with repo (customized Samvera)
+  * Tapas_rails is built off of Cerebus which is built off of Hydra
   * http://projecthydra.org/
 	* https://github.com/NEU-DSG/tapas_rails
-* Front end (currently Drupal, but may roll into Hydra)
+* Front end (currently Drupal, but may roll into Samvera)
   * http://www.drupal.org
 	* https://github.com/NEU-DSG/tapas-modules
 	* https://github.com/NEU-DSG/tapas-themes
