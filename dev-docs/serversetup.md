@@ -5,7 +5,9 @@
 
 ### Ruby on Rails + Hydra/Samvera
 
-Hydra (now “Samvera”) is a Ruby on Rails gem which provides components and infrastructure for running a digital repository. The [tapas_rails application](https://github.com/NEU-DSG/tapas_rails) stores, indexes, and serves out TEI files and associated images. In the future, the Rails app will also manage users and the web interface.
+Hydra (now “Samvera”) is a Ruby on Rails gem which provides components and infrastructure for running a digital repository. The [tapas_rails application](https://github.com/NEU-DSG/tapas_rails) is the main repository for TEI documents, metadata, and related assets. Rails stores files; indexes them; ensures files can point to each other; triggers the creation of derivatives (MODS metadata, XHTML for display), and stores those too. The Rails component also serves out the XML, XHTML, MODS, etc. on web requests. stores, indexes, and serves out TEI files and associated images.
+
+In the future, the Rails app will also manage users and the web interface.
 
 Parts and dependencies:
 
@@ -14,6 +16,7 @@ Parts and dependencies:
 * an implementation of MySQL server and the dev package;
 * Fedora at version 3.6.1 and Solr at version 4.0.0 (see section below);
 * Ruby at version 2.0.0;
+* nodeJS
 * tapas_rails, including notable gems:
 	* passenger at version 5.0.15,
 	* cerberus_core at version 0.0.1,
@@ -31,9 +34,9 @@ On a fresh copy of tapas_rails, with Ruby, Redis, and MySQL installed:
 
 		gem install bundler
 		bundle update logger --patch
-		./REDIS_HOME/src/redis-server
+<!--		./REDIS_HOME/src/redis-server
 		passenger start
-		QUEUE=* rake environment resque:work 
+		QUEUE=* rake environment resque:work -->
 
 The process for starting Fedora and Solr is described in the next section.
 
@@ -43,9 +46,9 @@ Useful links:
 * Downloads for Redis: <https://redis.io/download>
 * Installation instructions for RVM: <https://rvm.io/rvm/install>
 * The (very, very old) cerberus_core gem repository: <https://github.com/NEU-Libraries/cerberus_core>
+* The repository for the hydra-head gem, v7.2.0: <https://github.com/samvera/hydra-head/tree/v7.2.0>
 * “What happened to [Logger] v1.2.8?”: <https://github.com/nahi/logger/issues/3#issuecomment-455776902>
 * Installation instructions for the curb gem: <https://github.com/taf2/curb#installation>
-* hydra-head gem, v7.2.0: <https://github.com/samvera/hydra-head/tree/v7.2.0>
 
 
 #### Fedora + Solr + Jetty
@@ -59,9 +62,7 @@ Once the archive is in place, you can initialize Jetty:
 		rails g hydra:jetty
 		rake jetty:config
 
-Start Jetty with `rake jetty:start`, and stop it with `rake jetty:stop`.
-
-With Jetty running, Solr should be available at <http://localhost:8983/solr/>. Fedora should be available at <http://localhost:8983/fedora/>.
+Start Jetty with `rake jetty:start`, and stop it with `rake jetty:stop`. Jetty runs on port 8983.
 
 Useful links:
 
@@ -77,8 +78,9 @@ eXist is a Java-based XML database, used to derive metadata and XHTML from TEI f
 Parts and dependencies:
 
 * Java at version 8+;
-* eXist-DB at a version between 2.2 and 3.6.1 (version 2.2 can't be run with Java 9+); and
-* the TAPAS-xq app.
+* eXist-DB at a version between 2.2 and 3.6.1 (version 2.2 _must_ be run with Java 8); and
+* the TAPAS-xq app, which requires
+	* the XQJSON EXPath package (available in the eXist package repository, but deprecated in favor of JSON-to-XML conversion methods introduced in XQuery 3.1).
 
 Useful links:
 
@@ -87,83 +89,31 @@ Useful links:
 * On setting up eXist to start with the server: <http://exist-db.org/exist/apps/doc/advanced-installation.xml#service>
 * Downloads for the TAPAS-xq application: <https://github.com/NEU-DSG/tapas-xq/releases>
 * On deploying TAPAS-xq: <https://github.com/NEU-DSG/tapas-xq#installation>
+* XQJSON end-of-life notice and readme: <https://github.com/joewiz/xqjson/blob/master/README.md>
 
 
 ### Drupal
 
+In the production environment, Drupal serves as the front-end. It authenticates users and checks their TEI-C membership status (through the [Wild Apricot API](https://gethelp.wildapricot.com/en/articles/182-using-wild-apricots-api)); maintains data on TAPAS users, projects, etc.; maintains static webpages built by site admins; runs forums; manages what users see in the browser; and passes requests on to Rails.
 
-* **eXist-DB:** XML database (eXist)
-  * http://exist-db.org
-* Repository (Fedora)
-  * http://fedorarepository.org
-* Head to communicate with repo (customized Samvera)
-  * Tapas_rails is built off of Cerebus which is built off of Hydra
-  * http://projecthydra.org/
-	* https://github.com/NEU-DSG/tapas_rails
-* Front end (currently Drupal, but may roll into Samvera)
-  * http://www.drupal.org
-	* https://github.com/NEU-DSG/tapas-modules
-	* https://github.com/NEU-DSG/tapas-themes
-	* https://github.com/NEU-DSG/buildtapas
+In the future, TAPAS will remove the Drupal component and move the above responsibilities to the Rails component.
+
+Parts and dependencies:
+...
+
+Helpful links:
+
+	* Drupal home page: http://www.drupal.org
+	* GitHub repositories:
+		* https://github.com/NEU-DSG/tapas-modules
+		* https://github.com/NEU-DSG/tapas-themes
+		* https://github.com/NEU-DSG/buildtapas
 
 
+_Ashley left off reviewing the documentation here._
 
-### Prerequirements
+* * * * *
 
-* Webserver (we're using Apache)
-* JAVA instance (we're using Tomcat)
-* MySQL
-  * Used by Drupal and ?
-* sqllite
-  * used by ?
-* Ruby on Rails
-  * used by Hydra & hydra customizations
-	* gems:
-* PHP
-  * used by Drupal
-	* libraries
-* node.js
-  * used by Rails app to compile assets
-
-### List of installations from VM script
-* `java` Java runtime
-* `httpd` HTTP demon
-* 'lib-magic' is a magic-number recognition library. The build_box.sh script installs:
-  * `file-devel` header files and libraries needed to develop programs using 'libmagic'
-  * `file-libs` libraries for programs using 'libmagic'
-* `sqlite-devel`
-* `ghostscript` Postscript and PDF interpreter. Do we use this?
-* `ImageMagick` Image conversion
-* `redis` http://redis.io from website: "Redis is an open source (BSD licensed), in-memory data structure store, used as database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs and geospatial indexes with radius queries. Redis has built-in replication, Lua scripting, LRU eviction, transactions and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster." – how are we using this?
-* `libreoffice` – on a command-line box? Huh?
-* `unzip` – not installed by default?
-* `mysql-server`
-* `mysql-devel`
-* `gcc` I'm SURE this is installed
-* `nodejs` used by Rails app
-
-#### Install Phusion passenger
-```
-chmod o+x /home/vagrant 
-bundle exec passenger-install-apache2-module --auto 
-sudo cp -f /vagrant/requirements/httpd.conf /etc/httpd/conf/httpd.conf 
-echo "127.0.0.1   rails_api.localhost drupal.localhost" | sudo tee -a /etc/hosts
-```
-
-### Other Tools
-
-* drush
-* Ruby console
-* boris
-* boris-loader
-
-## Configuring pre-requirements
-
-### Apache configuration
-
-### Tomcat configuration
-
-### PHP configuration & libraries
 
 * `php`
 * `mod_php` Apache PHP module
@@ -182,9 +132,32 @@ sudo sed -i "s/post_max_size = 8M/post_max_size = 50M/g" /etc/php.ini
 sudo sed -i "s/memory_limit = 128M/memory_limit = 400M/g" /etc/php.ini
 ```
 
-### Ruby on Rails configuration and libraries
 
-### MySQL configuration
+
+## List of installations from VM script
+* `java` Java runtime
+* `httpd` HTTP demon
+* 'lib-magic' is a magic-number recognition library. The build_box.sh script installs:
+  * `file-devel` header files and libraries needed to develop programs using 'libmagic'
+  * `file-libs` libraries for programs using 'libmagic'
+* `sqlite-devel`
+* `ghostscript` Postscript and PDF interpreter. Do we use this?
+* `ImageMagick` Image conversion
+* `redis` http://redis.io from website: "Redis is an open source (BSD licensed), in-memory data structure store, used as database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs and geospatial indexes with radius queries. Redis has built-in replication, Lua scripting, LRU eviction, transactions and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster." – how are we using this?
+* `libreoffice` – on a command-line box? Huh?
+* `unzip` – not installed by default?
+* `mysql-server`
+* `mysql-devel`
+* `gcc` I'm SURE this is installed
+* `nodejs` used by Rails app
+
+
+## Other Tools
+
+* drush
+* Ruby console
+* boris
+* boris-loader
 
 
 ## Installing and configuring components
@@ -193,49 +166,47 @@ sudo sed -i "s/memory_limit = 128M/memory_limit = 400M/g" /etc/php.ini
 
 (from the VM script)
 
-```
-# the eXist version number
-new_exist_vers="2.2"
-# the name of the eXist installer file
-new_exist_jar="eXist-db-setup-2.2.jar"
-# the link to download the installer
-new_exist_url="http://sourceforge.net/projects/exist/files/Stable/${new_exist_vers}/${new_exist_jar}"
-if [ ! -d "/home/vagrant/.eXist/eXist-${new_exist_vers}" ]; then 
-	echo "Installing eXist-DB"
-	# Ensure the .eXist directory is present.
-	if [ ! -d "/home/vagrant/.eXist" ]; then
-		mkdir /home/vagrant/.eXist
-	fi
-  # Ensure the requirements/local directory is present.
-  if [ ! -d "/vagrant/requirements/local" ]; then
-    mkdir /vagrant/requirements/local
-  fi
-  # Download the eXist installer to requirements/local for persistence over box rebuilds.
-  if [ -f "/vagrant/requirements/local/${new_exist_jar}" ]; then
-    echo "Latest eXist installer already available - skipping download"
-  else
-    echo "Downloading the latest TAPAS-supported eXist installer"
-    wget -nv -P /vagrant/requirements/local $new_exist_url
-  fi
-	# Install eXist using the auto-install script.
-	echo "Installing eXist-${new_exist_vers}"
-	java -jar /vagrant/requirements/local/$new_exist_jar /vagrant/requirements/eXist-config/auto-install.xml
-	# Create symlink "latest-eXist".
-	safeish_symlink "/home/vagrant/.eXist/eXist-${new_exist_vers}" /home/vagrant/latest-eXist
-	# Ensure EXIST_HOME and JAVA_HOME environment variables are set.
-	if [ -z $JAVA_HOME ]; then
-		echo "export JAVA_HOME=/etc/alternatives/jre" >> /home/vagrant/.zprofile
-	fi
-	if [ -z $EXIST_HOME ]; then
-		echo "export EXIST_HOME=/home/vagrant/latest-eXist" >> /home/vagrant/.zprofile
-	fi
-	source /home/vagrant/.zprofile
-	echo "JAVA_HOME is set to: $JAVA_HOME"
-	echo "EXIST_HOME is set to: $EXIST_HOME"
+		# the eXist version number
+		new_exist_vers="2.2"
+		# the name of the eXist installer file
+		new_exist_jar="eXist-db-setup-2.2.jar"
+		# the link to download the installer
+		new_exist_url="http://sourceforge.net/projects/exist/files/Stable/${new_exist_vers}/${new_exist_jar}"
+		if [ ! -d "/home/vagrant/.eXist/eXist-${new_exist_vers}" ]; then 
+			echo "Installing eXist-DB"
+			# Ensure the .eXist directory is present.
+			if [ ! -d "/home/vagrant/.eXist" ]; then
+				mkdir /home/vagrant/.eXist
+			fi
+		  # Ensure the requirements/local directory is present.
+		  if [ ! -d "/vagrant/requirements/local" ]; then
+		    mkdir /vagrant/requirements/local
+		  fi
+		  # Download the eXist installer to requirements/local for persistence over box rebuilds.
+		  if [ -f "/vagrant/requirements/local/${new_exist_jar}" ]; then
+		    echo "Latest eXist installer already available - skipping download"
+		  else
+		    echo "Downloading the latest TAPAS-supported eXist installer"
+		    wget -nv -P /vagrant/requirements/local $new_exist_url
+		  fi
+			# Install eXist using the auto-install script.
+			echo "Installing eXist-${new_exist_vers}"
+			java -jar /vagrant/requirements/local/$new_exist_jar /vagrant/requirements/eXist-config/auto-install.xml
+			# Create symlink "latest-eXist".
+			safeish_symlink "/home/vagrant/.eXist/eXist-${new_exist_vers}" /home/vagrant/latest-eXist
+			# Ensure EXIST_HOME and JAVA_HOME environment variables are set.
+			if [ -z $JAVA_HOME ]; then
+				echo "export JAVA_HOME=/etc/alternatives/jre" >> /home/vagrant/.zprofile
+			fi
+			if [ -z $EXIST_HOME ]; then
+				echo "export EXIST_HOME=/home/vagrant/latest-eXist" >> /home/vagrant/.zprofile
+			fi
+			source /home/vagrant/.zprofile
+			echo "JAVA_HOME is set to: $JAVA_HOME"
+			echo "EXIST_HOME is set to: $EXIST_HOME"
 	
-	sh /vagrant/requirements/eXist-config/run-config.sh
-fi
-```
+			sh /vagrant/requirements/eXist-config/run-config.sh
+		fi
 
 ### Installing and configuring Fedora repo
 
@@ -298,8 +269,5 @@ Services to verify
 1. Install and configure Hydra/tapas_rails
 1. Install and configure the Drupal site
 1. Data migration
-
-
-
 
 
