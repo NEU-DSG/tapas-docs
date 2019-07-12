@@ -13,16 +13,16 @@ Parts and dependencies:
 
 * git;
 * Redis;
-* an implementation of MySQL server and the dev package;
 * Fedora at version 3.6.1 and Solr at version 4.0.0 (see section below);
 * Ruby at version 2.0.0;
-* nodeJS
 * tapas_rails, including notable gems:
 	* passenger at version 5.0.15,
 	* cerberus_core at version 0.0.1,
 		* curb
 			* ([requires libcurl packages](https://github.com/taf2/curb#installation)),
 		* logger at version 1.2.8 (not available anymore; run `bundle update logger --patch` to use version 1.2.8.1), and
+	* mysql2 at version 0.3.17
+		* ([requires MySQL server and development packages](https://github.com/brianmario/mysql2#installing))
 	* hydra-head at version 7.2.0.
 
 To obtain and use Ruby at a specific version, install the Ruby Version Manager (RVM) then run:
@@ -55,7 +55,7 @@ Useful links:
 
 The Hydra stack is founded on the Fedora repository, with Solr (and [Blacklight](http://projectblacklight.org/)) for indexing and discovery. Jetty is used to serve them out.
 
-TAPAS is version-locked to Fedora version 3.6.1 and Solr 4.0.0. Because the hydra-head’s `hydra:jetty` generator [won’t be able to find these on GitHub](https://github.com/samvera-deprecated/jettywrapper/blob/master/lib/jettywrapper.rb#L60), an alternate path for `ZIP_URL` has been set. An archive containing Solr and Fedora should be placed at `tapas_rails/tmp/new-solr-schema.zip`.
+TAPAS is version-locked to Fedora version 3.6.1 and Solr 4.0.0. Because the hydra-head’s `hydra:jetty` generator [won’t be able to find these on GitHub](https://github.com/samvera-deprecated/jettywrapper/blob/master/lib/jettywrapper.rb#L60), an alternate path for `ZIP_URL` has been configured for tapas_rails. An archive containing Solr and Fedora should be placed at `tapas_rails/tmp/new-solr-schema.zip`.
 
 Once the archive is in place, you can initialize Jetty:
 
