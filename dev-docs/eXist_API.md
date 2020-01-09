@@ -67,7 +67,7 @@ __`:doc-id`__: A unique identifier for the document record attached to the origi
 
 ### Store TEI in eXist
 
-`PUT exist/db/apps/tapas-xq/:proj-id/:doc-id/tei`
+`POST exist/db/apps/tapas-xq/:proj-id/:doc-id/tei`
 
 Content-type: application/xml
 
